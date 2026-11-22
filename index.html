@@ -181,7 +181,7 @@ const AIST=[{"id": "ai_rhapsody", "t": "王儲狂想曲（第1季、番外、第
 (function(){const D=window.DOD_STILLS||[];if(!D.length)return;const z='鏡外：緋簪',e='DO OR DIE';let s=AIST.find(x=>x.ex?(z===x.k):((x.k&&z.includes(x.k))||(x.k&&e.includes(x.k))));if(!s){s={id:'ai_dod',k:'鏡外',t:z,e:e};AIST.push(s)}s.imgs=D.filter((_,i)=>i!==6).concat(s.imgs||[]);s.car=true;s.wall=[0];delete s.hi;window.__dod=s})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
-const KOR=a=>/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||'');
+const KOR=a=>a[1]!=='頂峰之吻'&&(/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||''));
 const stOf=a=>{const [e,z]=a;return AIST.find(x=>x.ex?(z===x.k):((z&&z.includes(x.k))||(e&&e.includes(x.k))))};
 const wallOrder=()=>{const rows=[...AI.filter(a=>a[7]!=='rec'&&!KOR(a)),...AI.filter(a=>a[7]==='rec'&&!KOR(a)),...AI.filter(KOR)];const seen=new Set(),out=[];rows.forEach(a=>{const t=stOf(a);if(t&&!seen.has(t)){seen.add(t);out.push(t)}});AIST.forEach(t=>{if(!seen.has(t))out.push(t)});return out};
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){alert&&0}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
