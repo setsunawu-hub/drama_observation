@@ -213,7 +213,7 @@ renderWall();
 const CATS=[["all","全部"],["ai","AI 真人短劇"],["series","真人影集"],["movie","電影"],["chars","推薦角色（建模）"],["maturity","AI 製作成熟度觀察"],["research","研究設計"],["report","研究報告"]];
 let cat="all";
 const tabs=document.getElementById('tabs'),content=document.getElementById('content'),q=document.getElementById('q');
-CATS.forEach(([k,n])=>{const b=document.createElement('button');b.className='chip'+(k===cat?' on':'');b.textContent=n;b.onclick=()=>{cat=k;[...tabs.children].forEach(x=>x.classList.toggle('on',x===b));render()};tabs.appendChild(b)});
+CATS.forEach(([k,n])=>{const b=document.createElement('button');b.className='chip'+(k===cat?' on':'');b.textContent=n;b.onclick=()=>{[...tabs.children].forEach(x=>x.classList.toggle('on',x===b));if(k==='all'){window.scrollTo({top:0,behavior:'smooth'});return}const el=document.getElementById('sec_'+k);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})};tabs.appendChild(b)});
 q.oninput=render;
 const esc=s=>String(s||'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
 function realCard(r){return `<div class="c" id="card_${r.id}">${r.img?`<div class="th"><img src="${r.img}" alt=""></div>`:''}<h3>${esc(r.t)}</h3><div class="zh">${esc(r.e)}</div><div class="meta">${esc(r.cast)}</div>${/原著小說/.test(r.note)?'<span class="tag ost">有原著小說</span>':''}${r.cand?'<span class="tag rec">真人候選</span>':''}${r.tbd?'<span class="tag">待確認</span>':''}<div class="plot">${esc(r.note)}</div></div>`}
@@ -293,18 +293,18 @@ function render(){
  const k=q.value.trim().toLowerCase();
  const m=x=>!k||JSON.stringify(x).toLowerCase().includes(k);
  let h='';
- if(cat==='all'||cat==='ai'){
+ h+='<div id="sec_ai"></div>';{
   const main=AI.filter(a=>a[7]!=='rec'&&!KOR(a)&&m(a)),oth=AI.filter(a=>a[7]==='rec'&&!KOR(a)&&m(a)),kor=AI.filter(a=>KOR(a)&&m(a));
   h+=section('AI 真人短劇・主清單',main,aiCard);
   h+=section('AI 真人短劇・他人推薦',oth,aiCard);
   h+=section('AI 真人短劇・韓國製作',kor,aiCard);
  }
- if(cat==='all'||cat==='series')h+=section('真人影集',REAL.filter(r=>r.type==='series'&&m(r)),realCard);
- if(cat==='all'||cat==='movie')h+=section('電影',REAL.filter(r=>r.type==='movie'&&m(r)),realCard);
- if(cat==='chars')h=`<h2>推薦角色（建模）</h2><p class="hint">依推薦排名；角色建模資料卡來自你提供的圖。</p><div class="grid">${CHARS.slice().sort((a,b)=>a.n-b.n).map(charCard).join('')}</div>`;
- if(cat==='maturity')h=`<h2>AI 製作成熟度觀察</h2><div class="grid">${kv(MAT)}</div>`;
- if(cat==='research')h=`<h2>研究設計（初步）</h2><div class="grid">${kv(RES)}</div>`;
- if(cat==='report')h=reportHTML();content.innerHTML=h;carInit();
+ h+='<div id="sec_series"></div>';h+=section('真人影集',REAL.filter(r=>r.type==='series'&&m(r)),realCard);
+ h+='<div id="sec_movie"></div>';h+=section('電影',REAL.filter(r=>r.type==='movie'&&m(r)),realCard);
+ h+=`<div id="sec_chars"></div><h2>推薦角色（建模）</h2><p class="hint">依推薦排名；角色建模資料卡來自你提供的圖。</p><div class="grid">${CHARS.slice().sort((a,b)=>a.n-b.n).map(charCard).join('')}</div>`;
+ h+=`<div id="sec_maturity"></div><h2>AI 製作成熟度觀察</h2><div class="grid">${kv(MAT)}</div>`;
+ h+=`<div id="sec_research"></div><h2>研究設計（初步）</h2><div class="grid">${kv(RES)}</div>`;
+ h+='<div id="sec_report"></div>'+reportHTML();content.innerHTML=h;carInit();
 }
 {const W=window.WOLF_STILLS||[];CHARIMG.wk_caelan=W[3];CHARIMG.wk_emeric=W[2]}
 {const C=window.DOD_CARDS||[];CHARIMG.dod_yeoun=C[0];CHARIMG.dod_cha=C[1];const dc=CHARS.find(c=>c.n===99);if(dc&&window.__dod)dc.k=window.__dod.id}
