@@ -56,15 +56,15 @@ window.DETECTIVE_STILLS=["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
 <div class="sub">依資料來源 2026/11/10 版重新整理 ・ 分為 AI 真人短劇／真人影集／電影</div>
 </header>
 <main>
+<div class="bar">
+<input type="search" id="q" placeholder="搜尋片名、角色、平台…">
+</div>
+<div class="bar" id="tabs"></div>
 
 <h2>劇照牆</h2>
 <p class="hint">前面為你提供的 AI 短劇海報；點劇照可直接跳到下方對應的內容；真人作品可點「＋ 上傳劇照」放圖（僅存在你的瀏覽器）；「搜尋」會另開 Google 圖片。</p>
 <div class="wall" id="wall"></div>
 
-<div class="bar">
-<input type="search" id="q" placeholder="搜尋片名、角色、平台…">
-</div>
-<div class="bar" id="tabs"></div>
 
 <div id="content"></div>
 </main>
@@ -292,7 +292,7 @@ function render(){
  let h='';
  if(cat==='all'||cat==='ai'){
   const main=AI.filter(a=>a[7]!=='rec'&&m(a)),oth=AI.filter(a=>a[7]==='rec'&&m(a));
-  h+=section('AI 真人短劇・主清單',main,aiCard,'相同作品已合併（黑手黨契約系列併入 III、IV）。含推薦角色排名。');
+  h+=section('AI 真人短劇・主清單',main,aiCard);
   h+=section('AI 真人短劇・他人推薦',oth,aiCard);
  }
  if(cat==='all'||cat==='series')h+=section('真人影集',REAL.filter(r=>r.type==='series'&&m(r)),realCard);
@@ -304,7 +304,6 @@ function render(){
 }
 {const W=window.WOLF_STILLS||[];CHARIMG.wk_caelan=W[3];CHARIMG.wk_emeric=W[2]}
 {const C=window.DOD_CARDS||[];CHARIMG.dod_yeoun=C[0];CHARIMG.dod_cha=C[1];const dc=CHARS.find(c=>c.n===99);if(dc&&window.__dod)dc.k=window.__dod.id}
-try{const sb=document.querySelector('.sub');const w=AIST.find(x=>x.id==='ai_wolf');const d=AIST.find(x=>/偵探/.test((x.t||'')+(x.k||'')));const o=document.createElement('div');o.style.cssText='color:#e08bb0;font-size:12px';const set=t=>{o.textContent='診斷 v3｜AIST '+AIST.length+'｜狼騎士 '+(w?w.imgs.length+'張,car='+w.car+',wall='+JSON.stringify(w.wall):'找不到')+'｜偵探 '+(d?d.imgs.length+'張,id='+d.id:'找不到')+'｜WOLF_STILLS '+((window.WOLF_STILLS||[]).length)+'｜'+t};set('載入圖中…');sb.appendChild(o);const im=new Image();im.onload=()=>set('圖片載入成功');im.onerror=()=>set('圖片載入失敗');im.src=(window.WOLF_STILLS||[])[0]||''}catch(err){document.querySelector('.sub').append(' 診斷錯誤:'+err.message)}
 render();
 </script>
 </body>
