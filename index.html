@@ -212,6 +212,10 @@ if(r){r[1]=T;r[2]="DramaBox／nushort";r[3]="Cecil × Kane";r[4]="43 集；標�
 var s=AIST.find(function(x){return x.id==="ai_rose";});
 if(s){s.t=T;s.k=T;}
 })();
+(function(){
+var r=AI.find(function(a){return a[0]==="Oath of the Wolf Knight";});
+if(r){r[2]="DramaWave／nushort";r[4]="51 集；標籤：狼人、暗戀、王室、命定羈絆、禁忌之戀；尺度：⚠️在外面不要開。";r[6]="狼人騎士凱蘭自幼被帶進埃爾多蘭王宮，王子埃默里克是他唯一的朋友，也是他不敢說出口的心上人。授勳當天，他卻險些死在王子遞來的毒酒下。五年後，凱蘭率暗影狼族踏平王國，把昔日王子變成自己的貼身僕人，恨意與舊情就此糾纏不清。";}
+})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
 const KOR=a=>a[1]!=='頂峰之吻'&&(/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||''));
