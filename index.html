@@ -323,6 +323,15 @@ function render(){
 {const W=window.WOLF_STILLS||[];CHARIMG.wk_caelan=W[3];CHARIMG.wk_emeric=W[2]}
 {const C=window.DOD_CARDS||[];CHARIMG.dod_yeoun=C[0];CHARIMG.dod_cha=C[1];const dc=CHARS.find(c=>c.n===99);if(dc&&window.__dod)dc.k=window.__dod.id}
 render();
+{const _r=render;const wall=document.getElementById('wall'),wh=wall&&wall.previousElementSibling;
+const applyCat=()=>{const ch=[...content.children];let cur='';ch.forEach(e=>{if(e.id&&e.id.indexOf('sec_')===0)cur=e.id.slice(4);e.style.display=(cat==='all'||cur===cat)?'':'none'});if(wall)wall.style.display=cat==='all'?'':'none';if(wh&&wh.classList.contains('hint'))wh.style.display=cat==='all'?'':'none'};
+render=function(){_r();applyCat()};
+const keys=CATS.map(c=>c[0]);
+const setCat=(k,fromHash)=>{if(keys.indexOf(k)<0)k='all';cat=k;[...tabs.children].forEach((x,i)=>x.classList.toggle('on',keys[i]===k));if(!fromHash&&location.hash.slice(1)!==k)location.hash=k;render();window.scrollTo(0,0)};
+[...tabs.children].forEach((b,i)=>{b.onclick=()=>setCat(keys[i])});
+q.oninput=()=>{if(cat!=='all')setCat('all');else render()};
+window.addEventListener('hashchange',()=>setCat(location.hash.slice(1)||'all',true));
+setCat(location.hash.slice(1)||'all',true)}
 </script>
 </body>
 </html>
