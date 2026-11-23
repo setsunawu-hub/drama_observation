@@ -205,6 +205,13 @@ const AIST=[{"id": "ai_rhapsody", "t": "王儲狂想曲（第1季、番外、第
 (function(){const r=AI.find(a=>a[1]==='掌控之下');if(!r)return;r[2]='FlickReels／nushort';r[4]='50 集；標籤：黑幫；尺度：⚠️在外面不要開。';r[5]=r[5]||'';r[6]='鋼琴小王子利奧的生活原本乾淨得如同象牙塔，直到那個暴雨之夜，他順手救下了滿身是血的黑手黨教父尼科。一時的善念，成了他墮入地獄的開始。尼科對他一見鍾情，強行住進他的生活，剝奪了他與外界的一切聯繫，將他囚禁在巨大的金絲籠裡整整一年。為了逃離這個令人窒息的惡魔，利奧暗中聯繫了父母生前的摯友、年輕律師艾斯特瑞德，設下圈套將尼科藥暈，並計劃在教堂裡通過一場形式婚禮獲取大使館庇護、逃往國外。然而，就在神聖的教堂大門推開的那一刻，宣誓台上站著的，竟然是尼科。'})();
 (function(){const r=AI.find(a=>a[1]==='掌控之下');if(r)r[1]='絕對控制';const s=AIST.find(x=>x.id==='ai_uhc');if(s){s.t='絕對控制';s.k='絕對控制'}})();
 (function(){const r=AI.find(a=>a[1]==='冒名頂替的深海執念');if(r)r[1]='皮囊之下是深海';const s=AIST.find(x=>x.id==='ai_caught');if(s){s.t='皮囊之下是深海';s.k='皮囊之下是深海'}})();
+(function(){
+var T="黑幫老大的玫瑰少年";
+var r=AI.find(function(a){return a[0]==="The Mafia Boss’s Rose Boy";});
+if(r){r[1]=T;r[2]="DramaBox／nushort";r[3]="Cecil × Kane";r[4]="43 集；標籤：黑幫；尺度：⚠️在外面不要開。";r[6]="大學生塞西爾救下了黑幫老大凱恩，凱恩對他一見傾心。經歷背叛和自殺未遂後，凱恩把塞西爾培養成自己的左右手，兩人越走越近，凱恩的未婚妻卻從中作梗。塞西爾假死消失了五年。一個雪夜，兩人重逢，終於和好相擁。";}
+var s=AIST.find(function(x){return x.id==="ai_rose";});
+if(s){s.t=T;s.k=T;}
+})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
 const KOR=a=>a[1]!=='頂峰之吻'&&(/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||''));
