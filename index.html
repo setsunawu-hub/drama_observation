@@ -62,7 +62,7 @@ window.DETECTIVE_STILLS=["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wB
 <div class="bar" id="tabs"></div>
 
 <h2>劇照牆</h2>
-<p class="hint">點劇照可直接跳到對應影片介紹；真人作品可點「＋ 上傳劇照」放圖（僅存在你的瀏覽器）；「搜尋」會另開 Google 圖片。</p>
+<p class="hint">點劇照可直接跳到對應影片介紹；「搜尋」會另開 Google 圖片。</p>
 <div class="wall" id="wall"></div>
 
 
@@ -250,17 +250,11 @@ function renderWall(){
  wallOrder().forEach(r=>{const W=r.wall||r.imgs.map((_,i)=>i);r.imgs.forEach((u,i)=>{if(W.includes(i))T.push({id:r.id,key:r.imgs.length>1?r.id+'_'+i:r.id,t:r.t,e:r.e,img:(r.hi&&r.hi[i])||u,n:W.length,i:W.indexOf(i)})})});
  REAL.filter(r=>!r.tbd).forEach(r=>T.push({id:r.id,key:r.id,t:r.t,e:r.e,img:r.img,n:1,i:0}));
  T.forEach(r=>{
-  const img=store.get('still_'+r.key)||r.img;
+  const img=r.img;
   const d=document.createElement('div');d.className='still'+(img?' has':'');
   d.innerHTML=(img?`<img src="${img}" alt="${r.t} 劇照">`:`<div class="empty">尚未放置劇照</div>`)+
-   `<div class="act"><label class="btn">${img?'更換':'＋ 上傳劇照'}<input type="file" accept="image/*" hidden></label><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent((r.e||r.t)+' still')}">搜尋</a></div>`+
+   `<div class="act"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent((r.e||r.t)+' still')}">搜尋</a></div>`+
    `<div class="cap"><b>${r.t}${r.n>1?'（'+(r.i+1)+'/'+r.n+'）':''}</b>${r.e&&r.e!==r.t?r.e:''}</div>`;
-  d.querySelector('input').onchange=ev=>{
-   const f=ev.target.files[0];if(!f)return;
-   const im=new Image,u=URL.createObjectURL(f);
-   im.onload=()=>{const s=Math.min(1,600/im.width),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);store.set('still_'+r.key,c.toDataURL('image/jpeg',.8));URL.revokeObjectURL(u);renderWall()};
-   im.src=u;
-  };
   d.onclick=ev=>{if(ev.target.closest('.act'))return;goTo('card_'+r.id)};
   wall.appendChild(d);
  });
