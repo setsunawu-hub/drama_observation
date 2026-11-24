@@ -273,7 +273,7 @@ function renderWall(){
  T.forEach(r=>{
   const img=r.img;
   const d=document.createElement('div');d.className='still'+(img?' has':'');
-  d.innerHTML=(img?`<img src="${img}" alt="${r.t} 劇照">`:`<div class="empty">尚未放置劇照</div>`)+
+  d.innerHTML=(img?`<img loading="lazy" src="${img}" alt="${r.t} 劇照">`:`<div class="empty">尚未放置劇照</div>`)+
    `<div class="act"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent((r.e||r.t)+' still')}">搜尋</a></div>`+
    `<div class="cap"><b>${r.t}${r.n>1?'（'+(r.i+1)+'/'+r.n+'）':''}</b>${r.e&&r.e!==r.t?r.e:''}</div>`;
   d.onclick=ev=>{if(ev.target.closest('.act'))return;goTo('card_'+r.id)};
@@ -290,12 +290,12 @@ const tabs=document.getElementById('tabs'),content=document.getElementById('cont
 CATS.forEach(([k,n])=>{const b=document.createElement('button');b.className='chip'+(k===cat?' on':'');b.textContent=n;b.onclick=()=>{[...tabs.children].forEach(x=>x.classList.toggle('on',x===b));if(k==='all'){window.scrollTo({top:0,behavior:'smooth'});return}const el=document.getElementById('sec_'+k);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})};tabs.appendChild(b)});
 q.oninput=render;
 const esc=s=>String(s||'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
-function realCard(r){return `<div class="c" id="card_${r.id}">${r.imgs?`<div class="car"><div class="tr">${r.imgs.map(u=>`<img src="${u}" alt="">`).join('')}</div><span class="cn">1/${r.imgs.length}</span></div>`:r.img?`<div class="th"><img src="${r.img}" alt=""></div>`:''}<h3>${esc(r.t)}</h3><div class="zh">${esc(r.e)}</div><div class="meta">${esc(r.cast)}</div>${/原著小說/.test(r.note)?'<span class="tag ost">有原著小說</span>':''}${r.cand?'<span class="tag rec">真人候選</span>':''}${r.tbd?'<span class="tag">待確認</span>':''}<div class="plot">${esc(r.note)}</div></div>`}
+function realCard(r){return `<div class="c" id="card_${r.id}">${r.imgs?`<div class="car"><div class="tr">${r.imgs.map(u=>`<img loading="lazy" src="${u}" alt="">`).join('')}</div><span class="cn">1/${r.imgs.length}</span></div>`:r.img?`<div class="th"><img loading="lazy" src="${r.img}" alt=""></div>`:''}<h3>${esc(r.t)}</h3><div class="zh">${esc(r.e)}</div><div class="meta">${esc(r.cast)}</div>${/原著小說/.test(r.note)?'<span class="tag ost">有原著小說</span>':''}${r.cand?'<span class="tag rec">真人候選</span>':''}${r.tbd?'<span class="tag">待確認</span>':''}<div class="plot">${esc(r.note)}</div></div>`}
 function nm(s){return (/×/.test(s)?s.split(/\s*×\s*/):s.split(/\s+\/\s+|\s*／\s*/)).filter(Boolean)}
 const AILINK={"頂峰之吻":[["剪輯影片","https://youtu.be/zNgpjwRL-XM"]]};
 function aiCard(a){const [e,z,p,pair,note,rank,plot,flag]=a;
  const st=AIST.find(x=>x.ex?(z===x.k):((z&&z.includes(x.k))||(e&&e.includes(x.k))));
- const th=st?(st.car?`<div class="car"><div class="tr">${st.imgs.map(u=>`<img src="${u}" alt="">`).join('')}</div><span class="cn">1/${st.imgs.length}</span></div>`:`<div class="th">${st.imgs.map(u=>`<img src="${u}" alt="">`).join('')}</div>`):'';
+ const th=st?(st.car?`<div class="car"><div class="tr">${st.imgs.map(u=>`<img loading="lazy" src="${u}" alt="">`).join('')}</div><span class="cn">1/${st.imgs.length}</span></div>`:`<div class="th">${st.imgs.map(u=>`<img loading="lazy" src="${u}" alt="">`).join('')}</div>`):'';
  const ost=/OST/.test(note||''),epm=/另有\s*(\d+)\s*集番外/.exec(note||''),nt=(note||'').replace(/尚未上映[；。]?/,'').replace(/；有 OST。/,'。').replace(/有 OST；/,'').replace(/另有[^；。]*番外篇?[；]?/,'');
  return `<div class="c"${st?` id="card_${st.id}"`:''}>${th}<h3>${esc(e||z)}</h3>${e&&z?`<div class="zh">${esc(z)}</div>`:''}<div class="meta">${esc(p)}</div>${pair&&pair!=='—'?`<div class="meta">${esc(pair)}</div>`:''}${rank?`<span class="tag rec">推薦角色 ${esc(rank)}</span>`:''}${/尚未上映/.test(note||'')?'<span class="tag" style="background:#3b2a52;color:#e2c9ff">尚未上映</span>':''}${ost?'<span class="tag ost">OST</span>':''}${epm?`<span class="tag ep">有番外篇 ${epm[1]} 集</span>`:''}${flag==='rec'?'<span class="tag">他人推薦</span>':''}${nt?`<div class="plot">${esc(nt).replace(/^(.*?)[；。]?(尺度：[^；。]*。?)/,(m,x,y)=>(x?x+'。<br>':'')+y)}</div>`:''}${(AILINK[z]||[]).length?`<div style="margin-top:8px">${AILINK[z].map(l=>`<a class="btn" href="${l[1]}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:6px 14px;font-size:13px;background:var(--ac);border-color:var(--ac);color:#fff">▶ ${esc(l[0])}</a>`).join(' ')}</div>`:''}${plot&&plot.trim()?`<details><summary>劇情</summary><div class="plot">${esc(plot).replace(/\n/g,'<br>')}</div></details>`:''}</div>`}
 function section(title,items,fn,hint){return `<h2>${title}（${items.length}）</h2>${hint?`<p class="hint">${hint}</p>`:''}<div class="grid">${items.map(fn).join('')||'<p class="hint">沒有符合的項目</p>'}</div>`}
@@ -378,8 +378,8 @@ const CHARS=[
 CHARS.push({n:99,c:"Yeoun × Cha Han-gyeol",w:"DO OR DIE / 鏡外：緋簪",k:"",r:"待確認",models:[{img:"dod_yeoun",name:"Yeoun",info:""},{img:"dod_cha",name:"Cha Han-gyeol",info:""}]});
 function charCard(x){
  const st=x.k&&AIST.find(a=>a.id===x.k);
- const th=st?`<div class="th">${st.imgs.slice(0,1).map(u=>`<img src="${u}" alt="">`).join('')}</div>`:'';
- const mods=x.models?`<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">${x.models.map(m=>`<div style="width:${m.w||420}px;max-width:100%"><img src="${CHARIMG[m.img]}" alt="${m.name} 角色建模" style="width:100%;border-radius:10px;border:1px solid var(--line)${m.w?';aspect-ratio:3/4;object-fit:cover':''}"><div class="meta"><b>${m.name}</b>${m.info?'｜'+m.info:''}</div></div>`).join('')}</div>`:'';
+ const th=st?`<div class="th">${st.imgs.slice(0,1).map(u=>`<img loading="lazy" src="${u}" alt="">`).join('')}</div>`:'';
+ const mods=x.models?`<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">${x.models.map(m=>`<div style="width:${m.w||420}px;max-width:100%"><img loading="lazy" src="${CHARIMG[m.img]}" alt="${m.name} 角色建模" style="width:100%;border-radius:10px;border:1px solid var(--line)${m.w?';aspect-ratio:3/4;object-fit:cover':''}"><div class="meta"><b>${m.name}</b>${m.info?'｜'+m.info:''}</div></div>`).join('')}</div>`:'';
  return `<div class="c"${x.models?' style="grid-column:1/-1"':''}>${th}<h3>${x.n<90?'#'+x.n+' ':''}${esc(nm(x.c).join(' × '))}</h3><div class="zh">${esc(x.w)}</div><span class="tag rec">${esc(x.r)}</span>${st?`<div><a class="btn" href="#" onclick="goTo('card_${st.id}');return false">看作品卡片 →</a></div>`:''}${mods}</div>`}
 function carInit(){document.querySelectorAll('.car').forEach(c=>{if(c._i)return;c._i=1;const t=c.querySelector('.tr'),n=c.querySelector('.cn'),k=t.children.length;const idx=()=>Math.round(t.scrollLeft/t.clientWidth);t.addEventListener('scroll',()=>{n.textContent=(idx()+1)+'/'+k});setInterval(()=>{if(!document.body.contains(c)||c.matches(':hover'))return;t.scrollTo({left:((idx()+1)%k)*t.clientWidth,behavior:'smooth'})},3500)})}
 function goTo(id){q.value='';cat='all';[...tabs.children].forEach((x,i)=>x.classList.toggle('on',i===0));render();
