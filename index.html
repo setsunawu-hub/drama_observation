@@ -402,6 +402,7 @@ function render(){
  h+='<div id="sec_report"></div>'+reportHTML();content.innerHTML=h;carInit();
 }
 {const W=window.WOLF_STILLS||[];CHARIMG.wk_caelan=W[3];CHARIMG.wk_emeric=W[2]}
+{CHARIMG.wd_kyle="img/dd967d43781b.jpg";CHARIMG.wd_elliot="img/fd774054f82d.jpg";if(!CHARS.some(function(c){return c.n===98;}))CHARS.push({n:98,c:"Kyle Hayden（攻）× Elliot Graves（受）",w:"Well, done.",k:"ai_welldone",r:"Kyle：攻｜Elliot：受",models:[{img:"wd_kyle",name:"Kyle Hayden（攻）",info:"32 歲｜年下"},{img:"wd_elliot",name:"Elliot Graves（受）",info:"34 歲｜年上"}]});}
 {const C=window.DOD_CARDS||[];CHARIMG.dod_yeoun=C[0];CHARIMG.dod_cha=C[1];const dc=CHARS.find(c=>c.n===99);if(dc&&window.__dod)dc.k=window.__dod.id}
 render();
 {const _r=render;const wall=document.getElementById('wall'),wh=wall&&wall.previousElementSibling;
