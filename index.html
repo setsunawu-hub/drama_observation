@@ -251,6 +251,7 @@ if(!AIST.find(function(x){return x.id==="ai_love";}))AIST.push({id:"ai_love",t:"
 (function(){var i=AI.findIndex(function(a){return a[0]==="My Fake Boyfriend is a Global Superstar";});if(i>=0)AI.splice(i,1);var R=["My Fake Boyfriend Is a Global Superstar", "我的假男友是國際巨星", "StoReel／nushort", "Noah × Ash", "34 集；另有 15 集番外篇；標籤：狼人、絕美建模；尺度：清水。", "", "銀月族少年諾亞在假面舞會上醉酒，和狼人巨星艾什一夜情。醜聞爆發後，諾亞簽下為期 90 天的假戀愛合約，一邊隱藏身份，一邊在扮演男友的過程中漸漸愛上艾什。兩人之間產生了一種特殊的共感羈絆，能感受到對方的痛。隨著謊言與陰謀浮現，冒牌貨和家族恩怨接連登場，諾亞的銀月族身份和兩人命定伴侶的秘密也隨之曝光。對抗算計和血脈宿命的枷鎖，兩人跨越種族與欺騙，把一紙假合約變成了一生的真愛。\n番外篇：經紀人細數阿舍爾為諾亞惹出的一連串「災難」；兩人戴著口罩逛超市買感恩節食材，結果變成一場大逃亡；滿月夜，狼人和銀月族一起躁動黏人；感恩節餐桌上各自說出感謝，阿舍爾匿名資助族裡無家可歸的孩子，選擇了安靜安穩、只屬於兩人的生活。", ""];if(AI.some(function(a){return a[1]===R[1];}))return;var j=AI.findIndex(function(a){return a[1]==="鏡外：緋簪";});if(j<0)j=AI.length;AI.splice(j,0,R);})();
 (function(){[["我的奶香男友","二搭；"],["隊長耍花招","三搭；"]].forEach(function(q){var r=AI.find(function(a){return a[1]===q[0];});if(r&&r[4].indexOf("搭")<0)r[4]=q[1]+r[4];});})();
 (function(){[["我的奶香男友","二搭；","二搭（前作《救命！我進錯了社團》）；"],["隊長耍花招","三搭；","三搭（前作《救命！我進錯了社團》《我的奶香男友》）；"]].forEach(function(q){var r=AI.find(function(a){return a[1]===q[0];});if(r&&r[4].indexOf(q[1])===0)r[4]=q[2]+r[4].slice(q[1].length);});})();
+(function(){var r=AI.find(function(a){return a[1]==="隊長耍花招";});if(r)r[4]=r[4].replace("三搭（前作《救命！我進錯了社團》《我的奶香男友》）","三搭（前作《救命！我進錯了社團》）");})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
 const KOR=a=>a[1]!=='頂峰之吻'&&(/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||''));
