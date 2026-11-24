@@ -276,7 +276,7 @@ q.oninput=render;
 const esc=s=>String(s||'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
 function realCard(r){return `<div class="c" id="card_${r.id}">${r.imgs?`<div class="car"><div class="tr">${r.imgs.map(u=>`<img src="${u}" alt="">`).join('')}</div><span class="cn">1/${r.imgs.length}</span></div>`:r.img?`<div class="th"><img src="${r.img}" alt=""></div>`:''}<h3>${esc(r.t)}</h3><div class="zh">${esc(r.e)}</div><div class="meta">${esc(r.cast)}</div>${/原著小說/.test(r.note)?'<span class="tag ost">有原著小說</span>':''}${r.cand?'<span class="tag rec">真人候選</span>':''}${r.tbd?'<span class="tag">待確認</span>':''}<div class="plot">${esc(r.note)}</div></div>`}
 function nm(s){return (/×/.test(s)?s.split(/\s*×\s*/):s.split(/\s+\/\s+|\s*／\s*/)).filter(Boolean)}
-const AILINK={"頂峰之吻":[["第二季預告","https://youtu.be/zNgpjwRL-XM"]]};
+const AILINK={"頂峰之吻":[["剪輯影片","https://youtu.be/zNgpjwRL-XM"]]};
 function aiCard(a){const [e,z,p,pair,note,rank,plot,flag]=a;
  const st=AIST.find(x=>x.ex?(z===x.k):((z&&z.includes(x.k))||(e&&e.includes(x.k))));
  const th=st?(st.car?`<div class="car"><div class="tr">${st.imgs.map(u=>`<img src="${u}" alt="">`).join('')}</div><span class="cn">1/${st.imgs.length}</span></div>`:`<div class="th">${st.imgs.map(u=>`<img src="${u}" alt="">`).join('')}</div>`):'';
