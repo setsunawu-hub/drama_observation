@@ -262,6 +262,7 @@ if(!AIST.find(function(x){return x.id==="ai_love";}))AIST.push({id:"ai_love",t:"
 (function(){var f=AIST.find(function(x){return x.id==="ai_wolfpack";});if(!f)return;["img/7b07ef43487a.jpg","img/721e426597fe.jpg","img/4902ee6d2b9d.jpg","img/f1e3c0e58460.jpg","img/ef27cb1bd548.jpg"].forEach(function(u){f.imgs.push(u);});f.car=true;if(!f.wall)f.wall=[0];})();
 (function(){if(AIST.some(function(x){return x.id==="ai_wolfpack_ex";}))return;AIST.push({id:"ai_wolfpack_ex",t:"誤入狼群的哈士奇 番外篇",e:"",k:"誤入狼群的哈士奇 番外篇",ex:true,imgs:["img/498902bdff49.jpg","img/857bf017e048.jpg"],car:true,wall:[0]});})();
 (function(){var f=AIST.find(function(x){return x.id==="ai_magic";});if(!f)return;["img/aa75ef1cec7f.jpg","img/4507b8424b68.jpg","img/ed51d0f292ec.jpg","img/bea286b64435.jpg"].forEach(function(u){f.imgs.push(u);});f.car=true;if(!f.wall)f.wall=[0];})();
+(function(){var f=AIST.find(function(x){return x.id==="ai_magic";});if(f&&f.imgs.length===5)f.imgs.shift();})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
 const KOR=a=>a[1]!=='頂峰之吻'&&(/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||''));
