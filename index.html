@@ -444,6 +444,65 @@ const setCat=(k,fromHash)=>{if(keys.indexOf(k)<0)k='all';cat=k;[...tabs.children
 q.oninput=()=>{if(cat!=='all')setCat('all');else render()};
 window.addEventListener('hashchange',()=>setCat(location.hash.slice(1)||'all',true));
 setCat(location.hash.slice(1)||'all',true)}
+(function(){
+var st=document.createElement('style');st.textContent='#flt{align-items:center}#flt select,#flt input{background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:7px 10px;font-size:13px;max-width:100%}#flt input{min-width:130px;flex:1}#flt .cnt{color:var(--mu);font-size:12.5px}.lkr{text-align:right;margin-top:6px;clear:both}.lk{background:none;border:1px solid var(--line);color:var(--mu);border-radius:99px;padding:3px 10px;font-size:12px;cursor:pointer}.lk:hover{color:var(--tx)}';document.head.appendChild(st);
+var F={qs:0,wf:0,d2:0,d3:0,ep:0,pl:'',nm:''};
+function on(){return !!(F.qs||F.wf||F.d2||F.d3||F.ep||F.pl||F.nm)}
+function toks(s){return String(s||'').split(/[／\/]/).map(function(t){return t.replace(/\s*@.*$/,'').trim()}).filter(Boolean)}
+function pk(t){return t.toLowerCase().replace(/\s+/g,'').replace(/（.*?）/g,'')}
+function aiOk(a){var n=a[4]||'',z=a[1]||'';
+ if(F.qs||F.wf){if(!((F.qs&&/尺度：清水/.test(n))||(F.wf&&/⚠️在外面不要開/.test(n))))return false}
+ if(F.d2||F.d3){if(!((F.d2&&/^二搭/.test(n))||(F.d3&&/^三搭/.test(n))))return false}
+ if(F.ep&&!(/番外/.test(n)||/番外/.test(z)))return false;
+ if(F.pl&&toks(a[2]).map(pk).indexOf(F.pl)<0)return false;
+ if(F.nm&&String(a[3]||'').toLowerCase().indexOf(F.nm)<0)return false;
+ return true}
+function realOk(r){if(F.qs||F.wf||F.d2||F.d3||F.ep||F.pl)return false;return !F.nm||String(r.cast||'').toLowerCase().indexOf(F.nm)>=0}
+var P={};AI.forEach(function(a){var seen={};toks(a[2]).forEach(function(t){var k=pk(t);if(seen[k])return;seen[k]=1;(P[k]=P[k]||{n:t,c:0}).c++})});
+var bar=document.createElement('div');bar.className='bar';bar.id='flt';
+var chips=[];
+function chip(label,key){var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=label;b.setAttribute('data-k',key);b.onclick=function(){F[key]=F[key]?0:1;b.classList.toggle('on',!!F[key]);go()};chips.push(b);bar.appendChild(b)}
+chip('清水','qs');chip('⚠️在外面不要開','wf');chip('二搭','d2');chip('三搭','d3');chip('有番外','ep');
+var sel=document.createElement('select');sel.setAttribute('aria-label','平台');
+var o0=document.createElement('option');o0.value='';o0.textContent='平台：全部';sel.appendChild(o0);
+Object.keys(P).sort(function(a,b){return P[b].c-P[a].c||(P[a].n<P[b].n?-1:1)}).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=P[k].n+'（'+P[k].c+'）';sel.appendChild(o)});
+sel.onchange=function(){F.pl=sel.value;go()};bar.appendChild(sel);
+var inp=document.createElement('input');inp.type='search';inp.placeholder='主角名（如 Ethan）';inp.setAttribute('aria-label','主角名');inp.oninput=function(){F.nm=inp.value.trim().toLowerCase();go()};bar.appendChild(inp);
+var clr=document.createElement('button');clr.type='button';clr.className='chip';clr.textContent='清除篩選';clr.style.display='none';clr.onclick=function(){clearF(false)};bar.appendChild(clr);
+var cnt=document.createElement('span');cnt.className='cnt';bar.appendChild(cnt);
+tabs.parentNode.insertBefore(bar,tabs);
+function sync(){chips.forEach(function(b){b.classList.toggle('on',!!F[b.getAttribute('data-k')])});sel.value=F.pl;if(inp.value.trim().toLowerCase()!==F.nm)inp.value=F.nm;clr.style.display=on()?'':'none';if(!on())cnt.textContent=''}
+function clearF(silent){F={qs:0,wf:0,d2:0,d3:0,ep:0,pl:'',nm:''};sync();if(!silent)render()}
+function go(){if(cat!=='all')tabs.children[0].click();sync();render()}
+var R0=render,HIDE={chars:1,maturity:1,research:1,report:1};
+render=function(){
+ if(!on()){R0();return}
+ var a0=AI.slice(),r0=REAL.slice(),af=a0.filter(aiOk),rf=r0.filter(realOk);
+ AI.length=0;af.forEach(function(x){AI.push(x)});REAL.length=0;rf.forEach(function(x){REAL.push(x)});
+ try{R0()}finally{AI.length=0;a0.forEach(function(x){AI.push(x)});REAL.length=0;r0.forEach(function(x){REAL.push(x)})}
+ var cur='',ch=[].slice.call(content.children);
+ ch.forEach(function(e){if(e.id&&e.id.indexOf('sec_')===0)cur=e.id.slice(4);if(HIDE[cur])e.style.display='none'});
+ var hide=false;
+ ch.forEach(function(e){if(e.tagName==='H2'){hide=/（0）$/.test(e.textContent);}else if(e.id&&e.id.indexOf('sec_')===0){hide=false}if(hide)e.style.display='none'});
+ if(wall){wall.style.display='none';var h=wall.previousElementSibling;if(h){h.style.display='none';var h2=h.previousElementSibling;if(h2&&h2.tagName==='H2')h2.style.display='none'}}
+ cnt.textContent='符合 '+(af.length+rf.length)+' 部';
+};
+function hs(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)}
+function lk(h,fallback){var m=/id="card_([^"]+)"/.exec(h);var id=m?m[1]:fallback;if(!m)h=h.replace('<div class="c">','<div class="c" id="card_'+id+'">');return h.replace(/<\/div>$/,'<div class="lkr"><button type="button" class="lk" data-id="card_'+id+'">🔗 複製連結</button></div></div>')}
+var A0=aiCard;aiCard=function(a){return lk(A0(a),'r'+hs((a[0]||'')+'|'+(a[1]||'')))};
+var C0=realCard;realCard=function(r){return lk(C0(r),'x'+hs(String(r.t)))};
+var BASE='https://setsunawu-hub.github.io/drama_observation/';
+content.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.lk');if(!b)return;var url=BASE+'#'+b.getAttribute('data-id');
+ function done(){b.textContent='✓ 已複製';setTimeout(function(){b.textContent='🔗 複製連結'},1600)}
+ function fb(){var t=document.createElement('textarea');t.value=url;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();var ok=false;try{ok=document.execCommand('copy')}catch(x){}document.body.removeChild(t);if(ok)done();else b.textContent=url}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(done,fb)}else fb()});
+var G0=goTo;goTo=function(id){if(on())clearF(true);G0(id)};
+tabs.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.chip');if(b&&b!==tabs.children[0]&&on())clearF(true)},true);
+function cardNav(){var h=location.hash.slice(1);if(h.indexOf('card_')===0){goTo(h);setTimeout(function(){var el=document.getElementById(h);if(el)el.scrollIntoView({block:'center'})},700)}}
+window.addEventListener('hashchange',function(){var h=location.hash.slice(1);if(h.indexOf('card_')===0)cardNav();else if(on()&&h&&h!=='all')clearF(false)});
+cardNav();
+})();
+
 </script>
 </body>
 </html>
