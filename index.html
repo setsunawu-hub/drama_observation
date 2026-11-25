@@ -263,6 +263,7 @@ if(!AIST.find(function(x){return x.id==="ai_love";}))AIST.push({id:"ai_love",t:"
 (function(){if(AIST.some(function(x){return x.id==="ai_wolfpack_ex";}))return;AIST.push({id:"ai_wolfpack_ex",t:"誤入狼群的哈士奇 番外篇",e:"",k:"誤入狼群的哈士奇 番外篇",ex:true,imgs:["img/498902bdff49.jpg","img/857bf017e048.jpg"],car:true,wall:[0]});})();
 (function(){var f=AIST.find(function(x){return x.id==="ai_magic";});if(!f)return;["img/aa75ef1cec7f.jpg","img/4507b8424b68.jpg","img/ed51d0f292ec.jpg","img/bea286b64435.jpg"].forEach(function(u){f.imgs.push(u);});f.car=true;if(!f.wall)f.wall=[0];})();
 (function(){var f=AIST.find(function(x){return x.id==="ai_magic";});if(f&&f.imgs.length===5)f.imgs.shift();})();
+(function(){var f=AIST.find(function(x){return x.id==="ai_soothe";});if(!f||f.imgs.length!==1)return;f.imgs=["img/394361178dd8.jpg","img/2daaedd90acc.jpg","img/26ef0aa43fb9.jpg","img/b92e5d4963c8.jpg","img/e417fcdc5d58.jpg","img/a7e3c6b00977.jpg","img/7597e3a84ecb.jpg","img/34581ab3d9ff.jpg","img/82276476793f.jpg","img/ea1b7df0df15.jpg"];f.car=true;f.wall=[0];})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
 const KOR=a=>a[1]!=='頂峰之吻'&&(/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||''));
