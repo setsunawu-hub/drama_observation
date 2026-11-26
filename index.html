@@ -510,6 +510,97 @@ function cardNav(){var h=location.hash.slice(1);if(h.indexOf('card_')===0){goTo(
 window.addEventListener('hashchange',function(){var h=location.hash.slice(1);if(h.indexOf('card_')===0)cardNav();else if(on()&&h&&h!=='all')clearF(false)});
 cardNav();
 })();
+(function(){
+if(window.__ux2)return;window.__ux2=1;
+var flt=document.getElementById('flt');if(!flt)return;
+var BASE='https://setsunawu-hub.github.io/drama_observation/';
+var TODAY=new Date(Date.now()+288e5).toISOString().slice(0,10);
+function dd(a,b){return Math.round((Date.parse(a)-Date.parse(b))/864e5)}
+var D1='2026-11-26',D0='2026-11-25';
+var NEWS={};
+['不再是唯一','姐姐留下的男人','願望成真：我的秘密暗戀','愛上我的死對頭','85年的夏天'].forEach(function(k){NEWS[k]=D1});
+['網戀男友竟是死對頭','我睡了丈夫的情夫','與F1宿敵的顛簸情路','撞翻我的F1死對頭','愛上討厭的你','與你為敵的','與宿敵全速狂飆','與對手的禁忌之戀','他無法擺脫的Alpha','請把我壓制在地，我的宿敵','被愛神倒追的男孩','戰神渴望我','冰球明星的秘密男友','我的F1死對頭暗戀我','逆轉達陣的心跳'].forEach(function(k){NEWS[k]=D0});
+var LIM={'85年的夏天':{p:'Netflix',d:'2026-11-29'}};
+var GROUPS=[['王子的黑手黨騎士','王子的黑手黨騎士2 番外篇'],['誤入狼群的哈士奇','誤入狼群的哈士奇 番外篇','誤入魔法學院的哈士奇'],['我的假男友是國際巨星','我的假男友是國際巨星 番外篇'],['我的木偶師戀人','我的木偶師戀人 番外篇','我的木偶師戀人 2'],['黑契 3：黑幫繼承人的契約兄弟','黑契第四季']];
+var GI={};GROUPS.forEach(function(g,i){g.forEach(function(k){GI[k]=i})});
+var S={ms:'',so:'',open:{}},GL={},COL=false;
+var st=document.createElement('style');
+st.textContent='#ux2{align-items:center}#ux2 select{background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:7px 10px;font-size:13px;max-width:100%}#ux2 .cnt{color:var(--mu);font-size:12.5px}.ux-b{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0}.ux-new{background:#e08bb0;color:#1a1020;font-weight:700}.ux-lim{background:rgba(255,176,64,.16);color:#ffc266;border:1px solid #ffb040}.ser{margin-top:8px}.ux-flash{animation:uxf 1.8s ease}@keyframes uxf{0%,60%{box-shadow:0 0 0 3px #e08bb0}100%{box-shadow:0 0 0 0 transparent}}#uxLb{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(8,7,12,.95);z-index:100;display:none;align-items:center;justify-content:center;touch-action:pan-y}#uxLb.on{display:flex}#uxLb img{max-width:min(96vw,600px);max-height:min(86vh,800px);border-radius:12px;object-fit:contain;user-select:none}#uxLb button{position:absolute;background:rgba(30,27,40,.85);border:1px solid var(--line);color:var(--tx);width:44px;height:44px;border-radius:50%;font-size:24px;line-height:1;cursor:pointer}#uxLb .x{top:14px;right:14px}#uxLb .p{left:10px;top:50%;margin-top:-22px}#uxLb .n{right:10px;top:50%;margin-top:-22px}#uxLb.one .p,#uxLb.one .n{display:none}#uxLb .lc{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:var(--mu);font-size:13px}';
+document.head.appendChild(st);
+/* ---------- 小工具 ---------- */
+function key(a){return a[1]||a[0]}
+function nimg(a){var z=a[1],e=a[0];var s=AIST.find(function(x){return x.ex?(z===x.k):((z&&z.includes(x.k))||(e&&e.includes(x.k)))});return s?s.imgs.length:0}
+function rimg(r){return r.imgs?r.imgs.length:(r.img?1:0)}
+function badges(k){var h='',d=NEWS[k];if(d){var n=dd(TODAY,d);if(n>=0&&n<=7)h+='<span class="tag ux-new">NEW</span>'}var l=LIM[k];if(l&&TODAY<=l.d){var m=dd(l.d,TODAY);h+='<span class="tag ux-lim">⏳ '+l.p+' '+l.d.slice(5).replace('-','/')+' 下架'+(m===0?'（今天）':m<=3?'（剩 '+m+' 天）':'')+'</span>'}return h?'<div class="ux-b">'+h+'</div>':''}
+function buildGL(a0){GL={};var by={};a0.forEach(function(a){var k=key(a);if(GI[k]!==undefined)(by[GI[k]]=by[GI[k]]||[]).push(k)});Object.keys(by).forEach(function(i){var m=by[i];if(m.length<2)return;m.forEach(function(k){GL[k]={i:+i,lead:m[0],m:m}})})}
+function collapse(arr){var out=[];arr.forEach(function(a){var k=key(a),g=GL[k];if(!g||g.lead===k){out.push(a);if(g&&S.open[g.i])g.m.forEach(function(m2){if(m2!==k){var r=arr.find(function(x){return key(x)===m2});if(r)out.push(r)}})}});return out}
+function sortNew(arr,kf){return arr.map(function(x,i){return {x:x,i:i,d:NEWS[kf(x)]||''}}).sort(function(p,q2){return p.d<q2.d?1:p.d>q2.d?-1:p.i-q2.i}).map(function(o){return o.x})}
+function filtering(){return !!(flt.querySelector('.chip.on')||[].some.call(flt.querySelectorAll('select'),function(s){return s.value})||[].some.call(flt.querySelectorAll('input'),function(i){return i.value.trim()})||(q&&q.value.trim()))}
+/* ---------- 卡片：NEW／限時／同系列 ---------- */
+var A1=aiCard;aiCard=function(a){var h=A1(a),k=key(a),b=badges(k),g=GL[k];
+ if(b)h=h.replace('</h3>','</h3>'+b);
+ if(COL&&g&&g.lead===k)h=h.replace('<div class="lkr">','<div class="ser"><button type="button" class="lk" data-g="'+g.i+'">'+(S.open[g.i]?'▴ 收合同系列':'▾ 同系列另 '+(g.m.length-1)+' 部')+'</button></div><div class="lkr">');
+ return h};
+var C1=realCard;realCard=function(r){var h=C1(r),b=badges(r.t);return b?h.replace('</h3>','</h3>'+b):h};
+/* ---------- 介面 ---------- */
+var bar=document.createElement('div');bar.className='bar';bar.id='ux2';
+bar.innerHTML='<select id="uxMs" aria-label="補圖"><option value="">補圖：全部</option><option value="none">補圖：完全沒圖</option><option value="few">補圖：缺劇照（≤1 張）</option></select><select id="uxSo" aria-label="排序"><option value="">排序：預設</option><option value="new">排序：最近新增</option></select><button type="button" class="chip" id="uxRnd">🎲 隨機一部</button><button type="button" class="chip" id="uxShare" style="display:none">🔗 分享篩選</button><span class="cnt" id="uxCnt"></span>';
+flt.parentNode.insertBefore(bar,flt.nextSibling);
+var msS=bar.querySelector('#uxMs'),soS=bar.querySelector('#uxSo'),rnd=bar.querySelector('#uxRnd'),shr=bar.querySelector('#uxShare'),cnt=bar.querySelector('#uxCnt'),fc=flt.querySelector('.cnt');if(fc)fc.style.display='none';
+/* ---------- render ---------- */
+var HIDE={chars:1,maturity:1,research:1,report:1};
+function cards(){var out=[];[].forEach.call(content.querySelectorAll('.grid'),function(g){var h=g.previousElementSibling;while(h&&h.tagName!=='H2')h=h.previousElementSibling;if(h&&/^(AI 真人短劇|真人影集|電影)/.test(h.textContent)&&g.offsetParent!==null)[].forEach.call(g.querySelectorAll('.c'),function(c){out.push(c)})});return out}
+var R1=render;
+render=function(){
+ var a0=AI.slice(),r0=REAL.slice(),af=a0,rf=r0,fl=filtering();
+ buildGL(a0);
+ if(S.ms){af=af.filter(function(a){var n=nimg(a);return S.ms==='none'?n===0:n<2});rf=rf.filter(function(r){var n=rimg(r);return S.ms==='none'?n===0:n<2})}
+ COL=!fl&&!S.ms;if(COL)af=collapse(af);
+ if(S.so==='new'){af=sortNew(af,key);rf=sortNew(rf,function(r){return r.t})}
+ AI.length=0;af.forEach(function(x){AI.push(x)});REAL.length=0;rf.forEach(function(x){REAL.push(x)});
+ try{R1()}finally{AI.length=0;a0.forEach(function(x){AI.push(x)});REAL.length=0;r0.forEach(function(x){REAL.push(x)})}
+ if(S.ms){var cur='',ch=[].slice.call(content.children);
+  ch.forEach(function(e){if(e.id&&e.id.indexOf('sec_')===0)cur=e.id.slice(4);if(HIDE[cur])e.style.display='none'});
+  var hide=false;ch.forEach(function(e){if(e.tagName==='H2'){hide=/（0）$/.test(e.textContent)}else if(e.id&&e.id.indexOf('sec_')===0){hide=false}if(hide)e.style.display='none'});
+  var w=document.getElementById('wall');if(w){w.style.display='none';var h=w.previousElementSibling;if(h){h.style.display='none';var h2=h.previousElementSibling;if(h2&&h2.tagName==='H2')h2.style.display='none'}}}
+ var on=fl||!!S.ms;cnt.textContent=on?'符合 '+cards().length+' 部':'';
+ shr.style.display=(on||S.so)?'':'none';
+};
+/* ---------- 事件 ---------- */
+msS.onchange=function(){S.ms=msS.value;render();sync()};
+soS.onchange=function(){S.so=soS.value;render();sync()};
+rnd.onclick=function(){var cs=cards();if(!cs.length)return;var c=cs[Math.floor(Math.random()*cs.length)];c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.remove('ux-flash');void c.offsetWidth;c.classList.add('ux-flash')};
+content.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ser .lk');if(!b)return;var g=b.getAttribute('data-g');S.open[g]=!S.open[g];render();var nb=content.querySelector('.ser .lk[data-g="'+g+'"]');if(nb)nb.scrollIntoView({block:'center'})});
+function mem(id){var res=null;GROUPS.forEach(function(g,i){g.forEach(function(k){var a=AI.find(function(x){return key(x)===k});if(!a)return;var s=AIST.find(function(x){return x.ex?(a[1]===x.k):((a[1]&&a[1].includes(x.k))||(a[0]&&a[0].includes(x.k)))});if(s&&'card_'+s.id===id)res=i})});return res}
+var G1=goTo;goTo=function(id){var g=mem(id);if(g!==null&&!S.open[g])S.open[g]=1;if(S.ms){S.ms='';msS.value=''}G1(id);render()};
+/* ---------- 網址記住篩選 ---------- */
+function qs(){var p=[],f=[];[].forEach.call(flt.querySelectorAll('.chip.on[data-k]'),function(b){f.push(b.getAttribute('data-k'))});if(f.length)p.push('f='+f.join(','));var sl=flt.querySelector('select');if(sl&&sl.value)p.push('pl='+encodeURIComponent(sl.value));var inp=flt.querySelector('input');if(inp&&inp.value.trim())p.push('nm='+encodeURIComponent(inp.value.trim()));if(S.ms)p.push('ms='+S.ms);if(S.so)p.push('so='+S.so);return p.join('&')}
+function sync(){try{var s=qs();history.replaceState(null,'',(s?'?'+s:location.pathname)+location.hash)}catch(x){}}
+['click','change','input'].forEach(function(ev){flt.addEventListener(ev,function(){setTimeout(sync,0)})});
+shr.onclick=function(){var s=qs(),url=BASE+(s?'?'+s:''),b=shr;function done(){b.textContent='✓ 已複製';setTimeout(function(){b.textContent='🔗 分享篩選'},1600)}function fb(){var t=document.createElement('textarea');t.value=url;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();var ok=false;try{ok=document.execCommand('copy')}catch(x){}document.body.removeChild(t);if(ok)done();else b.textContent=url}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(done,fb)}else fb()};
+(function(){var p=new URLSearchParams(location.search);if(!p.toString())return;
+ var f=(p.get('f')||'').split(',');f.forEach(function(k){var b=k&&flt.querySelector('.chip[data-k="'+k+'"]');if(b&&!b.classList.contains('on'))b.click()});
+ var sl=flt.querySelector('select');if(p.get('pl')&&sl){sl.value=p.get('pl');if(sl.onchange)sl.onchange()}
+ var inp=flt.querySelector('input');if(p.get('nm')&&inp){inp.value=p.get('nm');inp.oninput&&inp.oninput()}
+ if(p.get('ms')==='none'||p.get('ms')==='few'){S.ms=p.get('ms');msS.value=S.ms}
+ if(p.get('so')==='new'){S.so='new';soS.value='new'}})();
+/* ---------- 劇照放大 ---------- */
+var lb=document.createElement('div');lb.id='uxLb';lb.innerHTML='<button type="button" class="x" aria-label="關閉">×</button><button type="button" class="p" aria-label="上一張">‹</button><img alt=""><button type="button" class="n" aria-label="下一張">›</button><span class="lc"></span>';document.body.appendChild(lb);
+var im=lb.querySelector('img'),ct=lb.querySelector('.lc'),L={list:[],i:0};
+function show(){im.src=L.list[L.i];ct.textContent=(L.i+1)+' / '+L.list.length;lb.classList.toggle('one',L.list.length<2)}
+function openLb(list,i){L.list=list;L.i=i<0?0:i;show();lb.classList.add('on');document.body.style.overflow='hidden'}
+function closeLb(){lb.classList.remove('on');document.body.style.overflow='';im.removeAttribute('src')}
+function step(d){var n=L.list.length;L.i=(L.i+d+n)%n;show()}
+lb.querySelector('.x').onclick=closeLb;lb.querySelector('.p').onclick=function(){step(-1)};lb.querySelector('.n').onclick=function(){step(1)};
+lb.addEventListener('click',function(e){if(e.target===lb)closeLb()});
+var tx=null;lb.addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
+lb.addEventListener('touchend',function(e){if(tx===null||L.list.length<2)return;var dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>50)step(dx<0?1:-1)},{passive:true});
+document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))return;if(e.key==='Escape')closeLb();else if(e.key==='ArrowLeft')step(-1);else if(e.key==='ArrowRight')step(1)});
+var dn=null;content.addEventListener('pointerdown',function(e){dn=[e.clientX,e.clientY]},true);
+content.addEventListener('click',function(e){var t=e.target;if(!t.matches||!t.matches('.car img'))return;if(dn&&(Math.abs(e.clientX-dn[0])>8||Math.abs(e.clientY-dn[1])>8))return;var car=t.closest('.car');var list=[].map.call(car.querySelectorAll('.tr img'),function(x){return x.getAttribute('src')});openLb(list,list.indexOf(t.getAttribute('src')))});
+render();
+})();
 
 </script>
 </body>
