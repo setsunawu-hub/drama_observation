@@ -156,6 +156,7 @@ const AI = [
   ["Supermodel Tamed by the CEO","被總裁馴服的超模","BibiShort","","","","","rec"],
   ["Help! I Joined A Wrong Club","救命！我進錯社團了","StoReel","","","","","rec"],
   ["Cupid, Chased by His Love","被愛神倒追的男孩","StoReel","","","","","rec"],
+  ["Cupid, Chased by His Love Special Episode","被愛神倒追的男孩 番外篇","StoReel","","","","","rec"],
   ["The Hockey Star's Secret Boyfriend","冰球明星的秘密男友","Bilibili","","","","","rec"],
   ["My Fake Boyfriend is a Global Superstar","我的假男友是全球巨星","StoReel","","","","","rec"],
   ["Fallen for My Demon Roommate","愛上我的惡魔室友","TikTok-Berry Drama","","","","","rec"],
@@ -303,6 +304,8 @@ if(!AIST.find(function(x){return x.id==="ai_love";}))AIST.push({id:"ai_love",t:"
 (function(){if(AIST.some(function(x){return x.id==="ai_pin";}))return;AIST.push({id:"ai_pin",t:"請把我壓制在地，我的宿敵",e:"Please Pin Me Down My Rival",k:"請把我壓制在地，我的宿敵",imgs:["img/127e90911344.jpg", "img/9e15ed7f896f.jpg", "img/9f21ee046cfb.jpg", "img/ae1fdcef30d7.jpg", "img/878a0ff6d5e1.jpg", "img/dfb212ac017f.jpg"],car:true,wall:[0],ex:true});})();
 (function(){if(AIST.some(function(x){return x.id==="ai_icestar";}))return;AIST.push({id:"ai_icestar",t:"冰球明星的秘密男友",e:"The Hockey Star's Secret Boyfriend",k:"冰球明星的秘密男友",imgs:["img/cc09b57636ea.jpg", "img/500e1a467888.jpg", "img/95381e95f821.jpg", "img/49744319742f.jpg", "img/478f27dfa9b9.jpg"],car:true,wall:[0],ex:true});})();
 (function(){if(AIST.some(function(x){return x.id==="ai_godwar";}))return;AIST.push({id:"ai_godwar",t:"戰神渴望我",e:"The God of War Desires Me",k:"戰神渴望我",imgs:["img/af1f802843b3.jpg", "img/34ac05cd0af5.jpg", "img/07cd3e2cbd59.jpg"],car:true,wall:[0],ex:true});})();
+(function(){if(AIST.some(function(x){return x.id==="ai_cupid";}))return;AIST.push({id:"ai_cupid",t:"被愛神倒追的男孩",e:"Cupid, Chased by His Love",k:"被愛神倒追的男孩",imgs:["img/3023101c77ab.jpg", "img/762b841e4f28.jpg", "img/7a458f745d06.jpg", "img/ecf7a8e9249e.jpg"],car:true,wall:[0],ex:true});})();
+(function(){if(AIST.some(function(x){return x.id==="ai_cupid2";}))return;AIST.push({id:"ai_cupid2",t:"被愛神倒追的男孩 番外篇",e:"Cupid, Chased by His Love Special Episode",k:"被愛神倒追的男孩 番外篇",imgs:["img/0863b283b789.jpg"],car:true,wall:[0],ex:true});})();
 (function(){if(document.getElementById('toTop'))return;var st=document.createElement('style');st.textContent='#toTop{position:fixed;right:16px;bottom:20px;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(30,27,40,.92);color:var(--ac);font-size:20px;line-height:1;cursor:pointer;z-index:50;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.45);opacity:0;transform:translateY(80px);pointer-events:none;transition:opacity .25s,transform .25s}#toTop.show{opacity:1;transform:none;pointer-events:auto}#toTop:active{transform:scale(.92)}';document.head.appendChild(st);var b=document.createElement('button');b.id='toTop';b.type='button';b.setAttribute('aria-label','回到頁首');b.textContent='↑';b.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})};document.body.appendChild(b);var t=0;function u(){t=0;b.classList.toggle('show',window.scrollY>600)}window.addEventListener('scroll',function(){if(!t)t=requestAnimationFrame(u)},{passive:true});u()})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
