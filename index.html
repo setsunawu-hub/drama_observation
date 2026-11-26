@@ -325,13 +325,14 @@ function renderWall(){
  const T=[];
  wallOrder().forEach(r=>{const W=r.wall||r.imgs.map((_,i)=>i);r.imgs.forEach((u,i)=>{if(W.includes(i))T.push({id:r.id,key:r.imgs.length>1?r.id+'_'+i:r.id,t:r.t,e:r.e,img:(r.hi&&r.hi[i])||u,n:W.length,i:W.indexOf(i)})})});
  REAL.filter(r=>!r.tbd).forEach(r=>T.push({id:r.id,key:r.id,t:r.t,e:r.e,img:r.img,n:1,i:0}));
+ {let C={};try{C=JSON.parse(store.get('wallClicks')||'{}')}catch(e){}const FIX=['ai_rhapsody','ai_rbmk','ai_hockey1'],ids=[];T.forEach(r=>{if(!ids.includes(r.id))ids.push(r.id)});const rk=id=>{const f=FIX.indexOf(id);return f>=0?-1e9+f:-(C[id]||0)};const ord=ids.map((id,i)=>[id,i]).sort((x,y)=>rk(x[0])-rk(y[0])||x[1]-y[1]).map(x=>x[0]);const g={};T.forEach(r=>(g[r.id]=g[r.id]||[]).push(r));T.length=0;ord.forEach(id=>g[id].forEach(r=>T.push(r)))}
  T.forEach(r=>{
   const img=r.img;
   const d=document.createElement('div');d.className='still'+(img?' has':'');
   d.innerHTML=(img?`<img loading="lazy" decoding="async" src="${img}" alt="${r.t} 劇照">`:`<div class="empty">尚未放置劇照</div>`)+
    `<div class="act"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent((r.e||r.t)+' still')}">搜尋</a></div>`+
    `<div class="cap"><b>${r.t}${r.n>1?'（'+(r.i+1)+'/'+r.n+'）':''}</b>${r.e&&r.e!==r.t?r.e:''}</div>`;
-  d.onclick=ev=>{if(ev.target.closest('.act'))return;goTo('card_'+r.id)};
+  d.onclick=ev=>{if(ev.target.closest('.act'))return;try{const c=JSON.parse(store.get('wallClicks')||'{}');c[r.id]=(c[r.id]||0)+1;store.set('wallClicks',JSON.stringify(c))}catch(e){}goTo('card_'+r.id)};
   wall.appendChild(d);
  });
 }
@@ -447,7 +448,7 @@ function render(){
  h+='<div id="sec_ai"></div>';{
   const main=AI.filter(a=>a[7]!=='rec'&&!KOR(a)&&m(a)),oth=AI.filter(a=>a[7]==='rec'&&!KOR(a)&&m(a)),kor=AI.filter(a=>KOR(a)&&m(a));
   h+=section('AI 真人短劇・主清單',main,aiCard);
-  h+=section('AI 真人短劇・他人推薦',oth,aiCard);
+  if(oth.length)h+=section('AI 真人短劇・他人推薦',oth,aiCard);
   h+=section('AI 真人短劇・韓國製作',kor,aiCard);
  }
  h+='<div id="sec_series"></div>';h+=section('真人影集',REAL.filter(r=>r.type==='series'&&m(r)),realCard);
