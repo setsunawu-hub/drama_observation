@@ -149,7 +149,7 @@ const AI = [
   ["Rough Ride With My F1 Rival","與F1宿敵的顛簸情路","DramaBox","","","","","rec"],
   ["Falling for My Enemy","愛上我的死對頭","Hahip","","","","","rec"],
   ["T-Boning my F1 Rival","撞翻我的F1死對頭","ReelShort","","","","","rec"],
-  ["Love Equation","愛情方程式","Flickreels","Reelix × Flip","","","外表帥氣的 Reelix 意外砸碎化學天才 Flip 苦心研究一個月的螢光實驗；兩人被困小黑屋，怕黑的 Reelix 露出脆弱，Flip 拿出螢光實驗，感情滋生。Flip 研究遭剽竊時 Reelix 站出來共同面對。","rec"],
+  ["Love Equation","愛情方程式","FlickReels","Reelix × Flip","","","外表帥氣的 Reelix 意外砸碎化學天才 Flip 苦心研究一個月的螢光實驗；兩人被困小黑屋，怕黑的 Reelix 露出脆弱，Flip 拿出螢光實驗，感情滋生。Flip 研究遭剽竊時 Reelix 站出來共同面對。","rec"],
   ["My Crush Isn't Him","我的暗戀對象不是他","StoReel","","","","","rec"],
   ["The God of War Desires Me","戰神渴望我","TikTok","","","","","rec"],
   ["Gridiron Rivals, Forced Kin","死對頭變叔叔","FlickReels","Stig × Rune","","","","rec"],
@@ -233,7 +233,7 @@ if(!AIST.find(function(x){return x.id==="ai_crush";}))AIST.push({id:"ai_crush",t
 (function(){if(AI.some(function(a){return a[0]==="Off-Side Heartbeat";}))return;var r=["Off-Side Heartbeat","越位心動","nushort","Adrian Wells × Chase","55 集；已完結；標籤：復仇。","","為了證明維克多·里德殺害了自己的父母，亞德里安·威爾斯接受理查德·里德的邀請執掌斯特林集團，條件只有一個：馴服他那個兇狠的兒子蔡斯。亞德里安發現蔡斯是個鋒芒畢露的對手，可在他追查維克多罪行的同時，蔡斯卻愛上了他。四個人的命運糾纏在一起，親密與危險並行，每一次靠近都暗藏刀鋒。",""];
 var j=AI.findIndex(function(a){return a[1]==="鏡外：緋簪";});AI.splice(j<0?AI.length:j,0,r);})();
 (function(){var i=AI.findIndex(function(a){return a[0]==="Love Equation";});if(i<0)return;var r=AI.splice(i,1)[0];
-r[1]="戀愛方程式";r[2]="Flickreels／nushort";r[4]="25 集；標籤：競技；尺度：清水。";r[5]="";r[6]="游泳天才瑞利克斯毀了化學天才弗利普做了一個月的螢光實驗，兩個截然不同的世界就此相撞。從針鋒相對到暗自心動，他們一起面對嫉妒、同住生活與各自的傷痕。兩顆不相似的心漸漸靠近，才發現愛情沒有公式——他們的相遇，就是最驚心動魄的化學反應。";r[7]="";
+r[1]="戀愛方程式";r[2]="FlickReels／nushort";r[4]="25 集；標籤：競技；尺度：清水。";r[5]="";r[6]="游泳天才瑞利克斯毀了化學天才弗利普做了一個月的螢光實驗，兩個截然不同的世界就此相撞。從針鋒相對到暗自心動，他們一起面對嫉妒、同住生活與各自的傷痕。兩顆不相似的心漸漸靠近，才發現愛情沒有公式——他們的相遇，就是最驚心動魄的化學反應。";r[7]="";
 var j=AI.findIndex(function(a){return a[1]==="鏡外：緋簪";});AI.splice(j<0?AI.length:j,0,r);
 if(!AIST.find(function(x){return x.id==="ai_love";}))AIST.push({id:"ai_love",t:"戀愛方程式",e:"Love Equation",k:"戀愛方程式",imgs:["img/079d59ba1d02.jpg", "img/bdb2f82bbcd3.jpg", "img/948092c0da1f.jpg", "img/43ebadddbe2e.jpg"],car:true,wall:[0]});})();
 (function(){var s=AIST.find(function(x){return x.id==="ai_offside";});if(s)return;AIST.push({id:"ai_offside",t:"越位心動",e:"Off-Side Heartbeat",k:"越位心動",imgs:["img/39ccbe357007.jpg", "img/8adec34a82fe.jpg", "img/66a71f0d5f97.jpg", "img/93a3bf84507a.jpg", "img/6588f670f716.jpg", "img/00725ee9291e.jpg", "img/bc3e692f0cb8.jpg"],car:true,wall:[0]});})();
