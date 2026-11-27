@@ -316,6 +316,7 @@ if(!AIST.find(function(x){return x.id==="ai_love";}))AIST.push({id:"ai_love",t:"
 (function(){var r=AI.find(function(a){return a[0]==="The story of Rian and the twins Lucas & Lucius";});if(r){r[4]="連載中；標籤：二攻一受、雙胞胎。";r[6]="真正的獵人總是以獵物的姿態出現";}})();
 (function(){if(AI.some(function(a){return a[1]==="完美失控";}))return;var b=AI.findIndex(function(a){return a[1]==="不再是唯一";});var r=["Perfectly Out of Control","完美失控","Hahip／nushort","Roman Sinclair × Theodore Dalton","有 OST；41 集；已完結；標籤：甜寵、手控必看；尺度：⚠️在外面不要開。","","",""];if(b<0)b=AI.length;AI.splice(b,0,r);})();
 (function(){if(AIST.some(function(x){return x.id==="ai_pooc";}))return;AIST.push({id:"ai_pooc",t:"完美失控",e:"Perfectly Out of Control",k:"完美失控",imgs:["img/699909dc0759.jpg", "img/134a5f8addaa.jpg", "img/d9cef04dab3f.jpg", "img/8aedc79d4b14.jpg"],car:true,wall:[0],ex:true});})();
+(function(){var r=AI.find(function(a){return a[1]==="完美失控";});if(r)r[6]="西奧．道爾頓從小就不信愛情。一次俱樂部邀約，讓他隔著屏幕對一個自稱「主人」的陌生人動了心。等他坐上收購談判桌，對面的羅曼．辛克萊卻用那道熟悉的聲音叫住了他。兩人之間，還有一段西奧早已忘記的童年往事。";})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
 const KOR=a=>a[1]!=='頂峰之吻'&&(/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||''));
