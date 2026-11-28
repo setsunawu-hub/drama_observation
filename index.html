@@ -322,6 +322,7 @@ if(!AIST.find(function(x){return x.id==="ai_love";}))AIST.push({id:"ai_love",t:"
 (function(){if(AIST.some(function(x){return x.id==="ai_offset";}))return;AIST.push({id:"ai_offset",t:"OFFSET",e:"OFFSET",k:"OFFSET",imgs:["img/2d9a653ed703.jpg", "img/13906980de5b.jpg", "img/70415558e425.jpg", "img/e202d002b8c0.jpg"],car:true,wall:[0]});})();
 (function(){var r=AI.find(function(a){return a[1]==="夜音：夜之聲";});if(r){r[4]="韓國製作；尺度：⚠️在外面不要開。";r[6]="我想要的，就會奪過來。哪怕將它摧毀。";}var c=AIST.find(function(x){return x.id==="ai_yeyin";});if(c){c.imgs=["img/b748080a972f.jpg", "img/b6a6554d0193.jpg", "img/1a0d8e824386.jpg", "img/c975b6de65f0.jpg", "img/9f237f9f5c6e.jpg"];c.car=true;c.land=true;c.wall=[0];}})();
 (function(){var i=AI.findIndex(function(a){return a[1].indexOf("男上加男")===0;}),j=AI.findIndex(function(a){return a[1]==="海盜王子：海怪的新郎";});if(i>=0&&j>i){var r=AI.splice(i,1)[0];AI.splice(j,0,r)}})();
+(function(){var i=AI.findIndex(function(a){return a[0]==="OFFSET";}),j=AI.findIndex(function(a){return a[0].indexOf("The story of Rian")===0;});if(i>=0&&j>=0&&i!==j+1){var r=AI.splice(i,1)[0];if(i<j)j--;AI.splice(j+1,0,r)}})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
 const KOR=a=>a[1]!=='頂峰之吻'&&(/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||''));
@@ -505,7 +506,7 @@ function chip(label,key){var b=document.createElement('button');b.type='button';
 chip('清水','qs');chip('⚠️在外面不要開','wf');chip('二搭','d2');chip('三搭','d3');chip('有番外','ep');
 var sel=document.createElement('select');sel.setAttribute('aria-label','平台');
 var o0=document.createElement('option');o0.value='';o0.textContent='平台：全部';sel.appendChild(o0);
-Object.keys(P).sort(function(a,b){return P[b].c-P[a].c||(P[a].n<P[b].n?-1:1)}).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=P[k].n+'（'+P[k].c+'）';sel.appendChild(o)});
+var ks=Object.keys(P).sort(function(a,b){return P[b].c-P[a].c||(P[a].n<P[b].n?-1:1)});var gi=ks.indexOf('ig'),yi=ks.indexOf('youtube');if(gi>yi&&yi>=0){ks.splice(gi,1);ks.splice(yi,0,'ig')}ks.forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=P[k].n+'（'+P[k].c+'）';sel.appendChild(o)});
 sel.onchange=function(){F.pl=sel.value;go()};bar.appendChild(sel);
 var inp=document.createElement('input');inp.type='search';inp.placeholder='主角名（如 Ethan）';inp.setAttribute('aria-label','主角名');inp.oninput=function(){F.nm=inp.value.trim().toLowerCase();go()};bar.appendChild(inp);
 var clr=document.createElement('button');clr.type='button';clr.className='chip';clr.textContent='清除篩選';clr.style.display='none';clr.onclick=function(){clearF(false)};bar.appendChild(clr);
