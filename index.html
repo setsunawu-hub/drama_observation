@@ -321,6 +321,7 @@ if(!AIST.find(function(x){return x.id==="ai_love";}))AIST.push({id:"ai_love",t:"
 (function(){if(AI.some(function(a){return a[0]==="OFFSET";}))return;var b=AI.findIndex(function(a){return a[1]==="不再是唯一";});var r=["OFFSET","","IG @rhett0414","Theo × Rhett","","","",""];if(b<0)b=AI.length;AI.splice(b,0,r);})();
 (function(){if(AIST.some(function(x){return x.id==="ai_offset";}))return;AIST.push({id:"ai_offset",t:"OFFSET",e:"OFFSET",k:"OFFSET",imgs:["img/2d9a653ed703.jpg", "img/13906980de5b.jpg", "img/70415558e425.jpg", "img/e202d002b8c0.jpg"],car:true,wall:[0]});})();
 (function(){var r=AI.find(function(a){return a[1]==="夜音：夜之聲";});if(r){r[4]="韓國製作；尺度：⚠️在外面不要開。";r[6]="我想要的，就會奪過來。哪怕將它摧毀。";}var c=AIST.find(function(x){return x.id==="ai_yeyin";});if(c){c.imgs=["img/b748080a972f.jpg", "img/b6a6554d0193.jpg", "img/1a0d8e824386.jpg", "img/c975b6de65f0.jpg", "img/9f237f9f5c6e.jpg"];c.car=true;c.land=true;c.wall=[0];}})();
+(function(){var i=AI.findIndex(function(a){return a[1].indexOf("男上加男")===0;}),j=AI.findIndex(function(a){return a[1]==="海盜王子：海怪的新郎";});if(i>=0&&j>i){var r=AI.splice(i,1)[0];AI.splice(j,0,r)}})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
 const KOR=a=>a[1]!=='頂峰之吻'&&(/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||''));
@@ -334,7 +335,7 @@ function renderWall(){
  const T=[];
  wallOrder().forEach(r=>{const W=r.wall||r.imgs.map((_,i)=>i);r.imgs.forEach((u,i)=>{if(W.includes(i))T.push({id:r.id,key:r.imgs.length>1?r.id+'_'+i:r.id,t:r.t,e:r.e,img:(r.hi&&r.hi[i])||u,n:W.length,i:W.indexOf(i),land:r.land})})});
  REAL.filter(r=>!r.tbd).forEach(r=>T.push({id:r.id,key:r.id,t:r.t,e:r.e,img:r.img,n:1,i:0}));
- {let C={};try{C=JSON.parse(store.get('wallClicks')||'{}')}catch(e){}const FIX=['ai_rhapsody','ai_rbmk','ai_hockey1'],ids=[];T.forEach(r=>{if(!ids.includes(r.id))ids.push(r.id)});const rk=id=>{const f=FIX.indexOf(id);return f>=0?-1e9+f:-(C[id]||0)};const ord=ids.map((id,i)=>[id,i]).sort((x,y)=>rk(x[0])-rk(y[0])||x[1]-y[1]).map(x=>x[0]);const g={};T.forEach(r=>(g[r.id]=g[r.id]||[]).push(r));T.length=0;ord.forEach(id=>g[id].forEach(r=>T.push(r)))}
+ {let C={};try{C=JSON.parse(store.get('wallClicks')||'{}')}catch(e){}const FIX=['ai_rhapsody','ai_rbmk','ai_hockey1'],ids=[];T.forEach(r=>{if(!ids.includes(r.id))ids.push(r.id)});const rk=id=>{const f=FIX.indexOf(id);return f>=0?-1e9+f:-(C[id]||0)};const ord=ids.map((id,i)=>[id,i]).sort((x,y)=>rk(x[0])-rk(y[0])||x[1]-y[1]).map(x=>x[0]);const g={};T.forEach(r=>(g[r.id]=g[r.id]||[]).push(r));T.length=0;var FOL={ai_rbmk:['ai_rbmk_ex'],ai_wolfpack:['ai_wolfpack_ex','ai_magic'],ai_crown:['ai_officer','ai_pirateprince'],ai_club:['ai_milk','ai_captain'],ai_star:['ai_star2'],ai_crush:['ai_farm'],ai_cupid:['ai_cupid2'],ai_marionette:['ai_marionette2'],ai_mc3:['ai_mc4'],ai_nocturne:['ai_runway']};var sk=[];Object.keys(FOL).forEach(function(k){if(g[k])FOL[k].forEach(function(c){sk.push(c)})});var o2=[];ord.forEach(function(id){if(sk.indexOf(id)>=0)return;o2.push(id);(g[id]&&FOL[id]||[]).forEach(function(c){if(g[c])o2.push(c)})});o2.forEach(id=>g[id].forEach(r=>T.push(r)))}
  T.forEach(r=>{
   const img=r.img;
   const d=document.createElement('div');d.className='still'+(img?' has':'')+(r.land?' wide':'');
