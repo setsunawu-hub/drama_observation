@@ -37,7 +37,7 @@ input[type=search]{flex:1;min-width:180px;background:var(--card);border:1px soli
 .tag{display:inline-block;font-size:11px;border-radius:6px;padding:1px 7px;margin:5px 4px 0 0;background:#2b2740;color:#cfc8ea}
 .tag.rec{background:#5b2a45;color:#ffc9e0}.tag.ep{background:#4a3a1f;color:#ffe2a8}.tag.ost{background:#23405a;color:#bfe0ff}.tag.done{background:#24472f;color:#c4f0cf}
 .plot{font-size:13px;color:#cfc9e3;margin-top:6px}
-.car{float:right;margin:0 0 6px 10px;width:120px;position:relative}.car .tr{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:8px;border:1px solid var(--line)}.car .tr::-webkit-scrollbar{display:none}.car .tr img{flex:0 0 100%;width:100%;aspect-ratio:3/4;object-fit:cover;scroll-snap-align:center}.still .btn{padding:9px 13px;font-size:12.5px}.btn{font-size:12px}.car .dl,.car .cn{font-size:12px}.car.land{width:200px}.car.land .tr img{aspect-ratio:16/9}.car .dl{position:absolute;left:6px;bottom:6px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:1px 7px;border-radius:10px;text-decoration:none}.car .cn{position:absolute;right:6px;bottom:6px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:1px 7px;border-radius:10px}.th{float:right;margin:0 0 6px 10px;display:flex;gap:4px}.th img{width:64px;height:88px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+.car{float:right;margin:0 0 6px 10px;width:120px;position:relative}.car .tr{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:8px;border:1px solid var(--line)}.car .tr::-webkit-scrollbar{display:none}.car .tr img{flex:0 0 100%;width:100%;aspect-ratio:3/4;object-fit:cover;scroll-snap-align:center}.wall.h{grid-template-columns:none;grid-template-rows:repeat(2,173px);grid-auto-flow:column;grid-auto-columns:130px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px}.wall.h .still{aspect-ratio:auto;height:173px;scroll-snap-align:start}.wall.h .still.wide{grid-column:span 2}.wtog{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:13px;margin:0 0 8px;cursor:pointer}.still .btn{padding:9px 13px;font-size:12.5px}.btn{font-size:12px}.car .dl,.car .cn{font-size:12px}.car.land{width:200px}.car.land .tr img{aspect-ratio:16/9}.car .dl{position:absolute;left:6px;bottom:6px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:1px 7px;border-radius:10px;text-decoration:none}.car .cn{position:absolute;right:6px;bottom:6px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:1px 7px;border-radius:10px}.th{float:right;margin:0 0 6px 10px;display:flex;gap:4px}.th img{width:64px;height:88px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
 .still{cursor:pointer}@keyframes capOut{to{transform:translateY(100%);opacity:0}}.still.seen .cap{animation:capOut .6s ease 3s forwards}.still:hover .cap,.still:not(.has) .cap{animation:none;opacity:1;transform:none}.c.flash{outline:2px solid var(--ac);transition:outline .3s}
 .sec{display:none}.sec.show{display:block}
 details summary{cursor:pointer;color:var(--ac2);font-size:12.5px;margin-top:6px}
@@ -63,7 +63,8 @@ window.DETECTIVE_STILLS=["img/9e5d9239d602.jpg","img/b6759ebe6439.jpg","img/335d
 
 <h2>劇照牆</h2>
 <p class="hint">點劇照可直接跳到對應影片介紹；「搜尋」會另開 Google 圖片。</p>
-<div class="wall" id="wall"></div>
+<button class="wtog" onclick="var w=document.getElementById('wall');w.classList.toggle('h');this.textContent=w.classList.contains('h')?'展開全部':'收合成橫向'">展開全部</button>
+<div class="wall h" id="wall"></div>
 
 
 <div id="content"></div>
