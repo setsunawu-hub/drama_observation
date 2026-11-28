@@ -319,6 +319,7 @@ if(!AIST.find(function(x){return x.id==="ai_love";}))AIST.push({id:"ai_love",t:"
 (function(){var r=AI.find(function(a){return a[1]==="完美失控";});if(r)r[6]="西奧．道爾頓從小就不信愛情。一次俱樂部邀約，讓他隔著屏幕對一個自稱「主人」的陌生人動了心。等他坐上收購談判桌，對面的羅曼．辛克萊卻用那道熟悉的聲音叫住了他。兩人之間，還有一段西奧早已忘記的童年往事。";})();
 (function(){if(AI.some(function(a){return a[0]==="OFFSET";}))return;var b=AI.findIndex(function(a){return a[1]==="不再是唯一";});var r=["OFFSET","","IG @rhett0414","Theo × Rhett","","","",""];if(b<0)b=AI.length;AI.splice(b,0,r);})();
 (function(){if(AIST.some(function(x){return x.id==="ai_offset";}))return;AIST.push({id:"ai_offset",t:"OFFSET",e:"OFFSET",k:"OFFSET",imgs:["img/2d9a653ed703.jpg", "img/13906980de5b.jpg", "img/70415558e425.jpg", "img/e202d002b8c0.jpg"],car:true,wall:[0]});})();
+(function(){var r=AI.find(function(a){return a[1]==="夜音：夜之聲";});if(r){r[4]="韓國製作；尺度：⚠️在外面不要開。";r[6]="我想要的，就會奪過來。哪怕將它摧毀。";}var c=AIST.find(function(x){return x.id==="ai_yeyin";});if(c){c.imgs=["img/7676cb9340c0.jpg", "img/924edc1e048d.jpg", "img/29342a53a85c.jpg", "img/86d849f0cc38.jpg", "img/8258ac9ab80d.jpg"];c.car=true;c.wall=[0];}})();
 AIST.forEach(x=>x.img=x.imgs[0]);
 
 const KOR=a=>a[1]!=='頂峰之吻'&&(/YouTube|Novela|Cliff|Melo/i.test(a[2]||'')||/韓國製作/.test(a[4]||''));
